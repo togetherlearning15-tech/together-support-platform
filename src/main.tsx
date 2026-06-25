@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   ArrowRight,
@@ -17,6 +17,8 @@ import {
   Search,
   ShieldCheck,
   Sparkles,
+  GraduationCap,
+  RotateCcw,
   Star,
   Users,
   X
@@ -74,9 +76,56 @@ const process = [
   ['6', 'Move-on outcomes', 'The goal is stability, independence and better long-term outcomes.']
 ];
 
+const whoWeSupport = [
+  [Home, 'Homeless Adults', 'Safe accommodation and housing-related support for people experiencing homelessness.'],
+  [HeartHandshake, 'Mental Health', 'Supportive housing pathways for people with mental health support needs.'],
+  [GraduationCap, 'Care Leavers', 'Practical support to build confidence, routines and independence.'],
+  [ShieldCheck, 'Domestic Abuse', 'Safe, respectful support with safeguarding and multi-agency working.'],
+  [RotateCcw, 'Substance Misuse Recovery', 'Stable accommodation that supports recovery, structure and positive routines.'],
+  [Users, 'Ex-Offenders', 'Risk-aware accommodation support focused on stability and move-on outcomes.'],
+  [ClipboardCheck, 'Complex Needs', 'Coordinated support for people with multiple or overlapping needs.'],
+  [Sparkles, 'Move-on Support', 'Helping people progress towards independent living and long-term stability.']
+] as const;
+
+const impact = [
+  ['People Supported', 'Growing Every Month'],
+  ['Local Authority Referrals', 'Accepted'],
+  ['Landlord Partnerships', 'Expanding'],
+  ['Safeguarding', 'At the Heart of Everything We Do']
+];
+
+const trustPartners = ['Local Authorities', 'Housing Providers', 'NHS & Health Partners', 'Landlords', 'Community Organisations'];
+
+const heroSlides = [
+  {
+    src: '/hero-house-front.png',
+    title: 'Modern supported accommodation',
+    text: 'Safe, well-presented homes for people who need housing-related support.'
+  },
+  {
+    src: '/hero-support-kitchen.png',
+    title: 'Practical daily support',
+    text: 'Person-centred support that helps people build confidence and routines.'
+  },
+  {
+    src: '/hero-support-meeting.png',
+    title: 'Support planning and move-on',
+    text: 'Warm, professional conversations focused on stability and independence.'
+  }
+];
+
+
 function App() {
   const [q, setQ] = useState('');
   const [menu, setMenu] = useState(false);
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setSlide((current) => (current + 1) % heroSlides.length);
+    }, 4500);
+    return () => window.clearInterval(timer);
+  }, []);
 
   const results = useMemo(() => {
     const s = q.toLowerCase().trim();
@@ -125,7 +174,7 @@ function App() {
             <p className="eyebrow">Supported accommodation • Housing-related support</p>
             <h1>Providing safe homes. Empowering independent lives.</h1>
             <p className="lead">
-              Together Support provides high-quality supported accommodation and person-centred housing-related support for adults with complex needs across England.
+              Together Support provides high-quality supported accommodation and housing-related support for adults experiencing homelessness, mental health challenges, care experience, domestic abuse, substance misuse and other complex needs. We work with local authorities, landlords and professional partners to create safe homes and positive futures.
             </p>
             <div className="actions">
               <a className="btn" href="#referrals">
@@ -138,32 +187,57 @@ function App() {
                 Become a Landlord
               </a>
             </div>
-          </div>
-          <div className="heroVisual" aria-label="Supported accommodation illustration">
-            <div className="homePhoto">
-              <div className="roof"></div>
-              <div className="window one"></div>
-              <div className="window two"></div>
-              <div className="door"></div>
-              <div className="sun"></div>
+            <div className="partnerLine">
+              Working with Local Authorities, Housing Providers, Landlords and Community Organisations across England.
             </div>
+            <div className="trustBadges" aria-label="Key services">
+              <span><CheckCircle /> Safe Accommodation</span>
+              <span><CheckCircle /> Housing Support</span>
+              <span><CheckCircle /> Professional Referrals</span>
+              <span><CheckCircle /> Landlord Partnerships</span>
+            </div>
+          </div>
+          <div className="heroVisual slideshowHero" aria-label="Rotating supported accommodation slideshow">
+            {heroSlides.map((item, index) => (
+              <figure className={'slideImage ' + (index === slide ? 'active' : '')} key={item.src}>
+                <img src={item.src} alt={item.title} />
+                <figcaption>
+                  <strong>{item.title}</strong>
+                  <span>{item.text}</span>
+                </figcaption>
+              </figure>
+            ))}
             <div className="floatingCard top"><ShieldCheck /> Safeguarding-first approach</div>
             <div className="floatingCard bottom"><Sparkles /> Safe homes • Better lives</div>
+            <div className="slideDots" aria-label="Slideshow controls">
+              {heroSlides.map((item, index) => (
+                <button
+                  key={item.src}
+                  className={index === slide ? 'active' : ''}
+                  onClick={() => setSlide(index)}
+                  aria-label={'Show slide ' + (index + 1)}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
-        <section className="stats" aria-label="Service highlights">
-          {[
-            ['24/7', 'Safe accommodation focus'],
-            ['Fast', 'Professional referrals'],
-            ['Long-term', 'Landlord partnerships'],
-            ['Outcome', 'Move-on support']
-          ].map(([big, small]) => (
-            <div key={small}>
+        <section className="stats impactStats" aria-label="Our impact">
+          {impact.map(([big, small]) => (
+            <div key={big}>
               <strong>{big}</strong>
               <span>{small}</span>
             </div>
           ))}
+        </section>
+
+        <section className="workingWith" aria-label="Working with">
+          <p className="eyebrow">Working With</p>
+          <div className="partnerLogos">
+            {trustPartners.map((name) => (
+              <div className="partnerLogo" key={name}>{name}</div>
+            ))}
+          </div>
         </section>
 
         <section id="about" className="section two">
@@ -190,6 +264,20 @@ function App() {
           <div className="grid cards">
             {services.map(([Icon, title, text]) => (
               <article className="card" key={title}>
+                <Icon />
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="section soft" id="who-we-support">
+          <p className="eyebrow">Who we support</p>
+          <h2>Support for people with different housing needs</h2>
+          <div className="grid supportGrid">
+            {whoWeSupport.map(([Icon, title, text]) => (
+              <article className="supportCard" key={title}>
                 <Icon />
                 <h3>{title}</h3>
                 <p>{text}</p>
@@ -226,7 +314,7 @@ function App() {
             {results.length ? (
               results.map((p) => (
                 <article className="property" key={p.id}>
-                  <div className="propertyImage"><Building2 /></div>
+                  <div className="propertyImage"><img src="/hero-house-front.png" alt="34 Milsom Street supported accommodation" /></div>
                   <div className="propertyBody">
                     <span className="badge">{p.status}</span>
                     <h3>{p.title}</h3>
@@ -360,23 +448,34 @@ function App() {
         </section>
       </main>
 
-      <footer>
-        <div>
+      <footer className="footer">
+        <div className="footerBrand">
+          <img src="/together-support-logo.png" alt="Together Support logo" />
           <strong>Together Support Ltd</strong>
           <span>Safe homes • Stronger futures • Better lives</span>
           <span>Company No: 12247622</span>
         </div>
         <div>
+          <strong>Website</strong>
+          <a href="#about">About</a>
+          <a href="#services">Services</a>
+          <a href="#properties">Properties</a>
+          <a href="#referrals">Referrals</a>
+          <a href="#landlords">Landlords</a>
+        </div>
+        <div>
+          <strong>Policies</strong>
+          <span>Careers</span>
+          <span>Privacy Policy</span>
+          <span>Cookies</span>
+          <a href="#contact">Contact</a>
+        </div>
+        <div>
           <strong>Contact</strong>
+          <span>27–31 Church Road, Bristol, BS5 9JJ</span>
           <span>0330 221 0527</span>
           <span>admin@togsupport.co.uk</span>
           <span>www.togsupport.co.uk</span>
-        </div>
-        <div>
-          <strong>Quick links</strong>
-          <span>Make a Referral</span>
-          <span>Available Properties</span>
-          <span>Become a Landlord</span>
         </div>
       </footer>
     </>
