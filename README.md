@@ -1,6 +1,6 @@
-# Together Support Platform v6 Professional Hero
+# Together Support Platform v7 Refactored
 
-Professional supported accommodation website for Together Support Ltd.
+Professional React + Vite + Supabase project structure.
 
 ## Run locally
 
@@ -9,24 +9,13 @@ npm install
 npm run dev
 ```
 
-## Build
+## Important
 
-```bash
-npm run build
-```
+Create a `.env` file from `.env.example` and add your Supabase URL and publishable key.
 
-## Current features
+## Structure
 
-- Professional homepage
-- Services section
-- Referral process section
-- Property finder with 34 Milsom Street
-- Referral form
-- Landlord enquiry form
-- Contact form
-- Testimonials placeholders
-- Responsive mobile layout
-
-## Supabase
-
-Run `supabase/schema.sql` in Supabase SQL Editor when ready.
+- `src/components` reusable UI sections and forms
+- `src/pages` Home, AdminLogin and Dashboard pages
+- `src/data/siteData.ts` website data and constants
+- `src/lib/supabase.ts` Supabase client
