@@ -207,8 +207,7 @@ function App() {
                 </figcaption>
               </figure>
             ))}
-            <div className="floatingCard top"><ShieldCheck /> Safeguarding-first approach</div>
-            <div className="floatingCard bottom"><Sparkles /> Safe homes • Better lives</div>
+            <div className="slideStatus"><ShieldCheck /> Safeguarding-first approach</div>
             <div className="slideDots" aria-label="Slideshow controls">
               {heroSlides.map((item, index) => (
                 <button

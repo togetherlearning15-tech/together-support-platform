@@ -1,4 +1,4 @@
-# Together Support Platform v1
+# Together Support Platform v6 Professional Hero
 
 Professional supported accommodation website for Together Support Ltd.
 
