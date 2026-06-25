@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { supabase } from './lib/supabase';
 import { createRoot } from 'react-dom/client';
 import {
   ArrowRight,
@@ -348,25 +349,58 @@ function App() {
         </section>
 
         <section id="referrals" className="section two">
-          <div>
-            <p className="eyebrow">Referrals</p>
-            <h2>Make a referral</h2>
-            <p>For councils, professionals, self-referrals and partner organisations.</p>
-            <ul className="tickList">
-              <li>Referral reviewed by the Together Support team</li>
-              <li>Accommodation suitability considered</li>
-              <li>Risk and support needs reviewed safely</li>
-            </ul>
-          </div>
-          <form className="form" onSubmit={(e) => { e.preventDefault(); alert('Referral submitted. Supabase connection will store this once configured.'); }}>
-            <input required placeholder="Referrer name" />
-            <input placeholder="Organisation" />
-            <input required type="email" placeholder="Email" />
-            <input placeholder="Telephone" />
-            <textarea required placeholder="Brief support needs / risks / preferred area"></textarea>
-            <button className="btn">Submit Referral <ArrowRight size={18} /></button>
-          </form>
-        </section>
+  <div>
+    <p className="eyebrow">Referrals</p>
+    <h2>Make a referral</h2>
+    <p>For councils, professionals, self-referrals and partner organisations.</p>
+    <ul className="tickList">
+      <li>Referral reviewed by the Together Support team</li>
+      <li>Accommodation suitability considered</li>
+      <li>Risk and support needs reviewed safely</li>
+    </ul>
+  </div>
+
+  <form
+    className="form"
+    onSubmit={async (e) => {
+      e.preventDefault();
+
+      const form = e.currentTarget;
+      const data = new FormData(form);
+
+      const { error } = await supabase.from("referrals").insert([
+        {
+          referrer_name: data.get("referrer_name"),
+          organisation: data.get("organisation"),
+          email: data.get("email"),
+          telephone: data.get("telephone"),
+          support_needs: data.get("support_needs")
+        }
+      ]);
+
+      if (error) {
+        alert(error.message);
+      } else {
+        alert("Referral submitted successfully!");
+        form.reset();
+      }
+    }}
+  >
+    <input name="referrer_name" required placeholder="Referrer name" />
+    <input name="organisation" placeholder="Organisation" />
+    <input name="email" required type="email" placeholder="Email" />
+    <input name="telephone" placeholder="Telephone" />
+    <textarea
+      name="support_needs"
+      required
+      placeholder="Brief support needs / risks / preferred area"
+    ></textarea>
+
+    <button className="btn">
+      Submit Referral <ArrowRight size={18} />
+    </button>
+  </form>
+</section>
 
         <section id="landlords" className="section soft two">
           <div>
@@ -380,13 +414,39 @@ function App() {
               <li>Supportive housing management model</li>
             </ul>
           </div>
-          <form className="form" onSubmit={(e) => { e.preventDefault(); alert('Landlord enquiry submitted.'); }}>
-            <input required placeholder="Your name" />
-            <input placeholder="Company" />
-            <input required type="email" placeholder="Email" />
-            <input placeholder="Telephone" />
-            <input placeholder="Property address" />
-            <textarea placeholder="Tell us about the property"></textarea>
+          <form
+            className="form"
+            onSubmit={async (e) => {
+              e.preventDefault();
+
+              const form = e.currentTarget;
+              const data = new FormData(form);
+
+              const { error } = await supabase.from("landlord_enquiries").insert([
+                {
+                  name: data.get("name"),
+                  company: data.get("company"),
+                  email: data.get("email"),
+                  telephone: data.get("telephone"),
+                  property_address: data.get("property_address"),
+                  message: data.get("message")
+                }
+              ]);
+
+              if (error) {
+                alert(error.message);
+              } else {
+                alert("Landlord enquiry submitted successfully!");
+                form.reset();
+              }
+            }}
+          >
+            <input name="name" required placeholder="Your name" />
+            <input name="company" placeholder="Company" />
+            <input name="email" required type="email" placeholder="Email" />
+            <input name="telephone" placeholder="Telephone" />
+            <input name="property_address" placeholder="Property address" />
+            <textarea name="message" placeholder="Tell us about the property"></textarea>
             <button className="btn">Send Landlord Enquiry</button>
           </form>
         </section>
@@ -438,10 +498,33 @@ function App() {
             <p><MapPin /> 27–31 Church Road, Bristol, BS5 9JJ</p>
             <p>Company No: 12247622</p>
           </div>
-          <form className="form" onSubmit={(e) => { e.preventDefault(); alert('Message submitted.'); }}>
-            <input required placeholder="Name" />
-            <input required type="email" placeholder="Email" />
-            <textarea required placeholder="Message"></textarea>
+          <form
+            className="form"
+            onSubmit={async (e) => {
+              e.preventDefault();
+
+              const form = e.currentTarget;
+              const data = new FormData(form);
+
+              const { error } = await supabase.from("contact_messages").insert([
+                {
+                  name: data.get("name"),
+                  email: data.get("email"),
+                  message: data.get("message")
+                }
+              ]);
+
+              if (error) {
+                alert(error.message);
+              } else {
+                alert("Message submitted successfully!");
+                form.reset();
+              }
+            }}
+          >
+            <input name="name" required placeholder="Name" />
+            <input name="email" required type="email" placeholder="Email" />
+            <textarea name="message" required placeholder="Message"></textarea>
             <button className="btn">Send Message</button>
           </form>
         </section>
