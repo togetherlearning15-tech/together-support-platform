@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Referrals } from './Referrals';
 import { ContactMessages } from './ContactMessages';
+import { Properties } from './Properties';
 import { DashboardHeader } from '../components/dashboard/DashboardHeader';
 import { KPIGrid } from '../components/dashboard/KPIGrid';
 import { QuickActions } from '../components/dashboard/QuickActions';
@@ -183,8 +184,7 @@ export function Dashboard() {
                     <p className="eyebrow">Build Status</p>
                     <h2>Admin system is connected</h2>
                     <p>
-                      The dashboard is now reading live counts from Supabase. Next we will add proper lists so you can open each referral,
-                      landlord enquiry and contact message.
+                      The dashboard is reading live counts from Supabase. Property management is now being added as the next module.
                     </p>
                   </div>
                 </section>
@@ -192,10 +192,9 @@ export function Dashboard() {
                 <section className="dashboardPanel">
                   <div>
                     <p className="eyebrow">Next Priority</p>
-                    <h2>Referral Management</h2>
+                    <h2>Property Management</h2>
                     <p>
-                      We should build the referrals table next. This will allow you to view referrals, check contact details, see support needs,
-                      and mark each referral as new, contacted, accepted or closed.
+                      We are building the property register first, then rooms, occupancy, compliance documents and resident links.
                     </p>
                   </div>
                 </section>
@@ -206,15 +205,19 @@ export function Dashboard() {
 
         {activePage === 'referrals' && <Referrals />}
         {activePage === 'contacts' && <ContactMessages />}
+        {activePage === 'properties' && <Properties />}
 
-        {activePage !== 'overview' && activePage !== 'referrals' && activePage !== 'contacts' && (
-          <main className="dashboardContent">
-            <div className="pageHeader">
-              <h1>Coming soon</h1>
-              <p>This section will be built after the referrals module.</p>
-            </div>
-          </main>
-        )}
+        {activePage !== 'overview' &&
+          activePage !== 'referrals' &&
+          activePage !== 'contacts' &&
+          activePage !== 'properties' && (
+            <main className="dashboardContent">
+              <div className="pageHeader">
+                <h1>Coming soon</h1>
+                <p>This section will be built after the property management module.</p>
+              </div>
+            </main>
+          )}
       </section>
     </main>
   );

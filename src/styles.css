@@ -257,3 +257,181 @@
   font-weight: 700;
   font-size: 13px;
 }
+/* Property Management */
+.propertyHeader {
+  align-items: center;
+}
+
+.primaryButton,
+.secondaryButton {
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primaryButton {
+  background: #009688;
+  color: white;
+}
+
+.secondaryButton {
+  background: white;
+  color: #12324a;
+  border: 1px solid #dbe7ee;
+}
+
+.propertyStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.propertyStatCard,
+.propertyCard,
+.emptyStateCard {
+  background: white;
+  border: 1px solid #dbe7ee;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 18px 40px rgba(18, 50, 74, 0.08);
+}
+
+.propertyStatCard span {
+  color: #5b7087;
+  font-weight: 800;
+}
+
+.propertyStatCard strong {
+  display: block;
+  font-size: 38px;
+  color: #12324a;
+  margin: 8px 0;
+}
+
+.propertyToolbar {
+  margin: 24px 0;
+}
+
+.propertyToolbar input {
+  width: 100%;
+  padding: 15px 18px;
+  border-radius: 16px;
+  border: 1px solid #d4e6ea;
+  font-size: 15px;
+}
+
+.propertyCardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.propertyCardTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.propertyCard h2 {
+  margin: 6px 0 8px;
+  color: #12324a;
+}
+
+.propertyStatus {
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.propertyStatus.active {
+  background: #e8f7f4;
+  color: #00796b;
+}
+
+.propertyStatus.full {
+  background: #fff3cd;
+  color: #8a6500;
+}
+
+.propertyStatus.vacant {
+  background: #e9f0ff;
+  color: #284d9b;
+}
+
+.occupancyBlock {
+  margin-top: 22px;
+}
+
+.occupancyText {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.occupancyBar {
+  height: 12px;
+  background: #edf3f6;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.occupancyBar div {
+  height: 100%;
+  background: linear-gradient(135deg, #27c4b8, #009688);
+  border-radius: 999px;
+}
+
+.propertyActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.adminForm {
+  display: grid;
+  gap: 16px;
+}
+
+.adminForm label {
+  display: grid;
+  gap: 7px;
+  font-weight: 800;
+  color: #12324a;
+}
+
+.adminForm input,
+.adminForm textarea {
+  border: 1px solid #d4e6ea;
+  border-radius: 14px;
+  padding: 13px 14px;
+  font: inherit;
+}
+
+.formActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.formError {
+  color: #b42318;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .propertyStatsGrid,
+  .propertyCardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .propertyHeader,
+  .propertyCardTop {
+    flex-direction: column;
+  }
+}
