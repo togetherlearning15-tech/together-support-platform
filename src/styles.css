@@ -94,3 +94,166 @@
     grid-template-columns: 1fr;
   }
 }
+.adminShell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  background: #eefafa;
+}
+
+.adminSidebar {
+  background: #062b3f;
+  color: white;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.adminBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.adminBrand img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  background: white;
+  border-radius: 14px;
+  padding: 6px;
+}
+
+.adminBrand strong {
+  display: block;
+  font-size: 18px;
+}
+
+.adminBrand span {
+  display: block;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.adminNav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.adminNav button,
+.adminSignOut {
+  border: 0;
+  background: transparent;
+  color: white;
+  text-align: left;
+  padding: 13px 14px;
+  border-radius: 14px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.adminNav button:hover,
+.adminNav button.active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.adminSignOut {
+  margin-top: auto;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.adminMain {
+  padding: 42px;
+}
+
+.dashboardCard .miniButton {
+  margin-top: 12px;
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 14px;
+  background: #009688;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .adminShell {
+    grid-template-columns: 1fr;
+  }
+
+  .adminSidebar {
+    position: static;
+    height: auto;
+  }
+
+  .adminMain {
+    padding: 24px;
+  }
+}
+.dashboardContent {
+  width: 100%;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.pageHeader h1 {
+  font-size: 42px;
+  margin: 0 0 12px;
+}
+
+.tableToolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.tableToolbar input,
+.tableToolbar select {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d4e6ea;
+  font-size: 15px;
+}
+
+.tableToolbar input {
+  min-width: 280px;
+}
+
+.adminTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.adminTable th {
+  text-align: left;
+  padding: 14px;
+  color: #47667a;
+  border-bottom: 1px solid #dbeaec;
+}
+
+.adminTable td {
+  padding: 16px 14px;
+  border-bottom: 1px solid #eef4f5;
+}
+
+.statusPill {
+  display: inline-block;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #e8f7f4;
+  color: #00796b;
+  font-weight: 700;
+  font-size: 13px;
+}

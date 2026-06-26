@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/Home';
 import { AdminLogin } from './pages/AdminLogin';
 import { Dashboard } from './pages/Dashboard';
@@ -7,15 +8,8 @@ import { supabase } from './lib/supabase';
 import './styles.css';
 
 function App() {
-  const [route, setRoute] = useState(window.location.hash.replace('#', '') || 'home');
   const [loggedIn, setLoggedIn] = useState(false);
   const [checkingSession, setCheckingSession] = useState(true);
-
-  useEffect(() => {
-    const onHashChange = () => setRoute(window.location.hash.replace('#', '') || 'home');
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
-  }, []);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -34,19 +28,23 @@ function App() {
     return <main className="adminPage"><p>Loading...</p></main>;
   }
 
-  if (route === 'admin') {
-    return <AdminLogin onLogin={() => setLoggedIn(true)} />;
-  }
-
-  if (route === 'dashboard') {
-    return loggedIn ? <Dashboard /> : <AdminLogin onLogin={() => setLoggedIn(true)} />;
-  }
-
-  return <HomePage />;
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/admin" element={<AdminLogin onLogin={() => setLoggedIn(true)} />} />
+      <Route
+        path="/dashboard"
+        element={loggedIn ? <Dashboard /> : <Navigate to="/admin" replace />}
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
 }
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
