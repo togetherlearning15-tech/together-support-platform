@@ -7,6 +7,8 @@ import { DashboardHeader } from '../components/dashboard/DashboardHeader';
 import { KPIGrid } from '../components/dashboard/KPIGrid';
 import { QuickActions } from '../components/dashboard/QuickActions';
 import { AttentionPanel } from '../components/dashboard/AttentionPanel';
+import { Residents } from './Residents';
+
 
 type Counts = {
   referrals: number;
@@ -206,10 +208,13 @@ export function Dashboard() {
         {activePage === 'referrals' && <Referrals />}
         {activePage === 'contacts' && <ContactMessages />}
         {activePage === 'properties' && <Properties />}
+        {activePage === 'residents' && <Residents />}
+
 
         {activePage !== 'overview' &&
           activePage !== 'referrals' &&
           activePage !== 'contacts' &&
+          activePage !== 'residents' &&
           activePage !== 'properties' && (
             <main className="dashboardContent">
               <div className="pageHeader">

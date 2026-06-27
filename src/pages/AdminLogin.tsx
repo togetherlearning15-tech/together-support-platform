@@ -34,7 +34,7 @@ export function AdminLogin({ onLogin }: AdminLoginProps) {
               alert(error.message);
             } else {
               onLogin();
-              window.location.hash = 'dashboard';
+              window.location.href = '/dashboard';
             }
           }}
         >
